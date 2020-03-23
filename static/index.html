@@ -34,14 +34,10 @@
             actions: {
                 connect({commit, dispatch}) {
                     this.conn = new WebSocket("ws://"+location.host+"/live");
-                    this.conn.onmessage = function(evt) {
-                        dispatch("update", evt.data);
-                    }
-                },
-                update({commit}, message) {
-                    commit('update', message)
+                    this.conn.onmessage = (evt) => commit("update", evt.data);
+                    this.conn.onclose = (evt) => setTimeout(() => dispatch("connect"), 5000);
                 }
-            },
+            }
         });
 
         const chat = {
