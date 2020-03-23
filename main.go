@@ -22,14 +22,12 @@ func now(w http.ResponseWriter, r *http.Request) {
 	go func() {
 		defer conn.Close()
 		ticker := time.NewTicker(1 * time.Second)
-		for {
-			select {
-			case <-ticker.C:
-				err := conn.WriteMessage(websocket.TextMessage, []byte(time.Now().String()))
-				if err != nil {
-					log.Print(err)
-					break
-				}
+		defer ticker.Stop()
+		for range ticker.C {
+			err := conn.WriteMessage(websocket.TextMessage, []byte(time.Now().String()))
+			if err != nil {
+				log.Print(err)
+				break
 			}
 		}
 	}()
