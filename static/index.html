@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sample websocket</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <style type="text/css"></style>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        Vue.use(Vuex);
+        
+        var store = new Vuex.Store({
+            state: {
+                message: ""
+            },
+            mutations: {
+                update: function(state, message) {
+                    state.message = message;
+                }
+            },
+            getters: {
+                message: state => state.message
+            },
+            actions: {
+                connect({commit, dispatch}) {
+                    this.conn = new WebSocket("ws://"+location.host+"/live");
+                    this.conn.onmessage = function(evt) {
+                        dispatch("update", evt.data);
+                    }
+                },
+                update({commit}, message) {
+                    commit('update', message)
+                }
+            },
+        });
+
+        const chat = {
+            template: `
+            <div>This is the message: {{message}}</div>
+            `,
+            components: {},
+            methods: {
+                ...Vuex.mapActions(['connect'])
+            },
+            computed: {
+                ...Vuex.mapGetters(['message'])
+            },
+            created() {
+                this.connect();
+            }
+        }
+        app = new Vue({
+            store,
+            render: h => h(chat),
+        }).$mount('#app');
+    </script>
+</body>
+</html>
