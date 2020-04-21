@@ -47,4 +47,11 @@ object Build : BuildType({
 object Test : BuildType({
     name = "test"
     description = "Run test suite"
+
+    steps {
+        script {
+            name = "test"
+            scriptContent = "echo 'test'"
+        }
+    }
 })
