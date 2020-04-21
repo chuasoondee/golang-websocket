@@ -32,4 +32,5 @@ project {
 
 object Build : BuildType({
     name = "build"
+    description = "Build application binaries"
 })
