@@ -30,6 +30,7 @@ project {
 
     buildType(Test)
     buildType(Build)
+    buildTypesOrder = arrayListOf(Test, Build)
 }
 
 object Build : BuildType({
