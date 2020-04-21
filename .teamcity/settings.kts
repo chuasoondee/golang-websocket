@@ -46,5 +46,5 @@ object Build : BuildType({
 
 object Test : BuildType({
     name = "test"
-    description = "Test code"
+    description = "Run test suite"
 })
