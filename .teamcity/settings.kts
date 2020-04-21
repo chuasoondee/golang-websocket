@@ -28,6 +28,7 @@ version = "2019.2"
 project {
     description = "Simple web application on websocket with golang and vue"
 
+    buildType(Test)
     buildType(Build)
 }
 
@@ -41,4 +42,9 @@ object Build : BuildType({
             scriptContent = "echo 'build step'"
         }
     }
+})
+
+object Test : BuildType({
+    name = "test"
+    description = "Test code"
 })
