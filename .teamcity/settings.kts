@@ -42,6 +42,13 @@ object Build : BuildType({
             scriptContent = "echo 'build step'"
         }
     }
+
+    dependencies {
+        snapshot(Test) {
+            onDependencyFailure = FailureAction.CANCEL
+            onDependencyCancel = FailureAction.CANCEL
+        }
+    }
 })
 
 object Test : BuildType({
