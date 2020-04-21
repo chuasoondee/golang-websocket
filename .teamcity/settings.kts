@@ -30,8 +30,29 @@ project {
 
     buildType(Test)
     buildType(Build)
-    buildTypesOrder = arrayListOf(Test, Build)
+    buildType(Release)
+    buildTypesOrder = arrayListOf(Test, Build, Release)
 }
+
+object Release : BuildType({
+    name = "release"
+    description = "Release application binaries"
+
+    steps {
+        script {
+            name = "release"
+            scriptContent = "echo 'release step'"
+        }
+    }
+
+    dependencies {
+        snapshot(Build) {
+            onDependencyFailure = FailureAction.CANCEL
+            onDependencyCancel = FailureAction.CANCEL
+        }
+    }
+})
+
 
 object Build : BuildType({
     name = "build"
@@ -59,7 +80,7 @@ object Test : BuildType({
     steps {
         script {
             name = "test"
-            scriptContent = "echo 'test'"
+            scriptContent = "echo 'test step'"
         }
     }
 })
