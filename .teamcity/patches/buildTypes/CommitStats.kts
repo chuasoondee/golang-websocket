@@ -13,5 +13,9 @@ create(DslContext.projectId, BuildType({
     id("CommitStats")
     name = "commit-stats"
     description = "Publish commit stats"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
 }))
 
