@@ -25,7 +25,7 @@ create(DslContext.projectId, BuildType({
         exec {
             name = "publish"
             enabled = false
-            path = "%teamcity.tool.git_commit_stats%"
+            path = "%teamcity.tool.git_commit_stats%/git_commit_stats.py"
         }
         script {
             name = "debug"
