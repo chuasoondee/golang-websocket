@@ -31,6 +31,7 @@ create(DslContext.projectId, BuildType({
         schedule {
             schedulingPolicy = daily {
                 minute = 30
+                timezone = "Asia/Singapore"
             }
             branchFilter = ""
             triggerBuild = always()
