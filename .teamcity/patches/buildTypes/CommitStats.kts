@@ -29,7 +29,10 @@ create(DslContext.projectId, BuildType({
         }
         script {
             name = "debug"
-            scriptContent = "ls -la %teamcity.agent.tools.dir%"
+            scriptContent = """
+                ls -la %teamcity.agent.tools.dir%/git_commit_stats/
+                command -v %teamcity.tool.git_commit_stats%
+            """.trimIndent()
         }
     }
 
