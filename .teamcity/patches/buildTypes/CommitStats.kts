@@ -28,6 +28,7 @@ create(DslContext.projectId, BuildType({
         }
         script {
             name = "debug"
+            enabled = false
             scriptContent = """
                 ls -la %teamcity.agent.tools.dir%/git_commit_stats/
                 ls -la `command -v %teamcity.tool.git_commit_stats%`
