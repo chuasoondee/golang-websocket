@@ -3,6 +3,7 @@ package patches.buildTypes
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.BuildType
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.exec
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.schedule
 import jetbrains.buildServer.configs.kotlin.v2019_2.ui.*
 
@@ -24,6 +25,10 @@ create(DslContext.projectId, BuildType({
         exec {
             name = "publish"
             path = "%teamcity.tool.git_commit_stats%"
+        }
+        script {
+            name = "debug"
+            scriptContent = "ls %teamcity.agent.tools.dir%"
         }
     }
 
