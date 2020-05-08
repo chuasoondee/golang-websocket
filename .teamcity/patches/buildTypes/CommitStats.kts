@@ -29,7 +29,7 @@ create(DslContext.projectId, BuildType({
         }
         script {
             name = "debug"
-            scriptContent = "ls %teamcity.agent.tools.dir%"
+            scriptContent = "ls -la %teamcity.agent.tools.dir%"
         }
     }
 
