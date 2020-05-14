@@ -36,6 +36,10 @@ create(DslContext.projectId, BuildType({
                 ls -la `command -v %teamcity.tool.git_commit_stats%`
             """.trimIndent()
         }
+        script {
+            name = "publish (1)"
+            scriptContent = "%teamcity.tool.singlife-cli%/git_commit_stats.py --format influx | %teamcity.tool.singlife-cli%/post -url http://influxdb:8086/write?db=git_commit_stats&precision=s"
+        }
     }
 
     triggers {
