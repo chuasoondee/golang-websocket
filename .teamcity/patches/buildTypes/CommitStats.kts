@@ -24,6 +24,7 @@ create(DslContext.projectId, BuildType({
     steps {
         exec {
             name = "publish"
+            enabled = false
             path = "%teamcity.tool.git_commit_stats%/git_commit_stats.py"
             arguments = "--format influx --all"
         }
